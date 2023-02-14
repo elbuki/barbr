@@ -10,8 +10,11 @@ import SwiftUI
 @main
 struct barbr_Watch_AppApp: App {
     var body: some Scene {
+        let preferences = UserPreferences()
+        
         WindowGroup {
             ContentView()
+                .environmentObject(preferences)
         }
     }
 }

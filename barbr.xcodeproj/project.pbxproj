@@ -12,6 +12,17 @@
 		D008D228299441DC0017CC7D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D227299441DC0017CC7D /* ContentView.swift */; };
 		D008D22A299441DD0017CC7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D008D229299441DD0017CC7D /* Assets.xcassets */; };
 		D008D22D299441DD0017CC7D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D008D22C299441DD0017CC7D /* Preview Assets.xcassets */; };
+		D008D239299442380017CC7D /* WatchDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = D008D238299442380017CC7D /* WatchDatePicker */; };
+		D008D23C299444690017CC7D /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23B299444690017CC7D /* Requester.swift */; };
+		D008D23E299444B60017CC7D /* TidyCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23D299444B60017CC7D /* TidyCal.swift */; };
+		D008D240299445480017CC7D /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23F299445480017CC7D /* Booking.swift */; };
+		D008D24229944A0A0017CC7D /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D24129944A0A0017CC7D /* MockClient.swift */; };
+		D008D24429944A780017CC7D /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D24329944A780017CC7D /* Client.swift */; };
+		D00A27372995BA7300B4FB0A /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A27362995BA7300B4FB0A /* UserPreferences.swift */; };
+		D012CD79299C2E3600271B23 /* CreateAppointmentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */; };
+		D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */; };
+		D012CD7D299C2F9000271B23 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD7C299C2F9000271B23 /* Appointment.swift */; };
+		D0510E77299AF10800116AC3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0510E76299AF10800116AC3 /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +56,16 @@
 		D008D227299441DC0017CC7D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D008D229299441DD0017CC7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D008D22C299441DD0017CC7D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D008D23B299444690017CC7D /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
+		D008D23D299444B60017CC7D /* TidyCal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidyCal.swift; sourceTree = "<group>"; };
+		D008D23F299445480017CC7D /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
+		D008D24129944A0A0017CC7D /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClient.swift; sourceTree = "<group>"; };
+		D008D24329944A780017CC7D /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		D00A27362995BA7300B4FB0A /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppointmentRequest.swift; sourceTree = "<group>"; };
+		D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentQuestion.swift; sourceTree = "<group>"; };
+		D012CD7C299C2F9000271B23 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
+		D0510E76299AF10800116AC3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D008D239299442380017CC7D /* WatchDatePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,10 +100,13 @@
 		D008D224299441DC0017CC7D /* barbr Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				D008D23A299444200017CC7D /* TidyCal */,
 				D008D225299441DC0017CC7D /* barbrApp.swift */,
 				D008D227299441DC0017CC7D /* ContentView.swift */,
 				D008D229299441DD0017CC7D /* Assets.xcassets */,
 				D008D22B299441DD0017CC7D /* Preview Content */,
+				D00A27362995BA7300B4FB0A /* UserPreferences.swift */,
+				D0510E76299AF10800116AC3 /* OnboardingView.swift */,
 			);
 			path = "barbr Watch App";
 			sourceTree = "<group>";
@@ -92,6 +117,21 @@
 				D008D22C299441DD0017CC7D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D008D23A299444200017CC7D /* TidyCal */ = {
+			isa = PBXGroup;
+			children = (
+				D008D23B299444690017CC7D /* Requester.swift */,
+				D008D23D299444B60017CC7D /* TidyCal.swift */,
+				D008D23F299445480017CC7D /* Booking.swift */,
+				D008D24129944A0A0017CC7D /* MockClient.swift */,
+				D008D24329944A780017CC7D /* Client.swift */,
+				D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */,
+				D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */,
+				D012CD7C299C2F9000271B23 /* Appointment.swift */,
+			);
+			path = TidyCal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +167,9 @@
 			dependencies = (
 			);
 			name = "barbr Watch App";
+			packageProductDependencies = (
+				D008D238299442380017CC7D /* WatchDatePicker */,
+			);
 			productName = "barbr Watch App";
 			productReference = D008D220299441DC0017CC7D /* barbr Watch App.app */;
 			productType = "com.apple.product-type.application";
@@ -158,6 +201,9 @@
 				Base,
 			);
 			mainGroup = D008D213299441DC0017CC7D;
+			packageReferences = (
+				D008D237299442380017CC7D /* XCRemoteSwiftPackageReference "watch-date-picker" */,
+			);
 			productRefGroup = D008D21B299441DC0017CC7D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -192,8 +238,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0510E77299AF10800116AC3 /* OnboardingView.swift in Sources */,
+				D008D24229944A0A0017CC7D /* MockClient.swift in Sources */,
+				D008D24429944A780017CC7D /* Client.swift in Sources */,
+				D012CD7D299C2F9000271B23 /* Appointment.swift in Sources */,
 				D008D228299441DC0017CC7D /* ContentView.swift in Sources */,
 				D008D226299441DC0017CC7D /* barbrApp.swift in Sources */,
+				D008D23E299444B60017CC7D /* TidyCal.swift in Sources */,
+				D008D23C299444690017CC7D /* Requester.swift in Sources */,
+				D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */,
+				D00A27372995BA7300B4FB0A /* UserPreferences.swift in Sources */,
+				D008D240299445480017CC7D /* Booking.swift in Sources */,
+				D012CD79299C2E3600271B23 /* CreateAppointmentRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +378,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"barbr Watch App/Preview Content\"";
@@ -352,6 +409,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"barbr Watch App/Preview Content\"";
@@ -442,6 +500,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D008D237299442380017CC7D /* XCRemoteSwiftPackageReference "watch-date-picker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elbuki/watch-date-picker";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D008D238299442380017CC7D /* WatchDatePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D008D237299442380017CC7D /* XCRemoteSwiftPackageReference "watch-date-picker" */;
+			productName = WatchDatePicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D008D214299441DC0017CC7D /* Project object */;
 }
