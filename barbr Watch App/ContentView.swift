@@ -11,14 +11,17 @@ import SwiftUI
 // Test: 19nkjdm
 
 struct ContentView: View {
-    @EnvironmentObject var userPreferences: UserPreferences
+    @EnvironmentObject var preferences: Preferences
 
     @State var presentOnboarding = false
     
     var body: some View {
         VStack {
-            Text("Data was added")
-            // Date time selector
+            if preferences.savedAppointment == nil {
+                BookAppointmentView()
+            } else {
+                Text("Data was added")
+            }
         }
         .onAppear(perform: viewDidLoad)
         .sheet(isPresented: $presentOnboarding, content: onboardingSheet)
@@ -26,7 +29,7 @@ struct ContentView: View {
     }
     
     private func viewDidLoad() {
-        presentOnboarding = !userPreferences.isInitialized
+        presentOnboarding = !preferences.isUserInitialized
     }
     
     private func onboardingSheet() -> some View {
@@ -35,9 +38,9 @@ struct ContentView: View {
     }
     
     private func submitOnboarding(name: String, email: String, phone: Int) {
-        userPreferences.name = name
-        userPreferences.email = email
-        userPreferences.phone = phone
+        preferences.name = name
+        preferences.email = email
+        preferences.phone = phone
         
         presentOnboarding = false
     }
@@ -46,6 +49,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(UserPreferences())
+            .environmentObject(Preferences())
     }
 }

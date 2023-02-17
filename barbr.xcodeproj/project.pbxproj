@@ -18,11 +18,13 @@
 		D008D240299445480017CC7D /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23F299445480017CC7D /* Booking.swift */; };
 		D008D24229944A0A0017CC7D /* MockClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D24129944A0A0017CC7D /* MockClient.swift */; };
 		D008D24429944A780017CC7D /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D24329944A780017CC7D /* Client.swift */; };
-		D00A27372995BA7300B4FB0A /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A27362995BA7300B4FB0A /* UserPreferences.swift */; };
+		D00A27372995BA7300B4FB0A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A27362995BA7300B4FB0A /* Preferences.swift */; };
 		D012CD79299C2E3600271B23 /* CreateAppointmentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */; };
 		D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */; };
 		D012CD7D299C2F9000271B23 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD7C299C2F9000271B23 /* Appointment.swift */; };
 		D0510E77299AF10800116AC3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0510E76299AF10800116AC3 /* OnboardingView.swift */; };
+		D0BC2CA4299EF68E00D4448D /* BookAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */; };
+		D0BC2CA6299EFC6900D4448D /* Binding+onChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,11 +63,13 @@
 		D008D23F299445480017CC7D /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
 		D008D24129944A0A0017CC7D /* MockClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockClient.swift; sourceTree = "<group>"; };
 		D008D24329944A780017CC7D /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		D00A27362995BA7300B4FB0A /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		D00A27362995BA7300B4FB0A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppointmentRequest.swift; sourceTree = "<group>"; };
 		D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentQuestion.swift; sourceTree = "<group>"; };
 		D012CD7C299C2F9000271B23 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
 		D0510E76299AF10800116AC3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentView.swift; sourceTree = "<group>"; };
+		D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+onChange.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +109,10 @@
 				D008D227299441DC0017CC7D /* ContentView.swift */,
 				D008D229299441DD0017CC7D /* Assets.xcassets */,
 				D008D22B299441DD0017CC7D /* Preview Content */,
-				D00A27362995BA7300B4FB0A /* UserPreferences.swift */,
+				D00A27362995BA7300B4FB0A /* Preferences.swift */,
 				D0510E76299AF10800116AC3 /* OnboardingView.swift */,
+				D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */,
+				D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */,
 			);
 			path = "barbr Watch App";
 			sourceTree = "<group>";
@@ -243,12 +249,14 @@
 				D008D24429944A780017CC7D /* Client.swift in Sources */,
 				D012CD7D299C2F9000271B23 /* Appointment.swift in Sources */,
 				D008D228299441DC0017CC7D /* ContentView.swift in Sources */,
+				D0BC2CA4299EF68E00D4448D /* BookAppointmentView.swift in Sources */,
 				D008D226299441DC0017CC7D /* barbrApp.swift in Sources */,
 				D008D23E299444B60017CC7D /* TidyCal.swift in Sources */,
 				D008D23C299444690017CC7D /* Requester.swift in Sources */,
 				D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */,
-				D00A27372995BA7300B4FB0A /* UserPreferences.swift in Sources */,
+				D00A27372995BA7300B4FB0A /* Preferences.swift in Sources */,
 				D008D240299445480017CC7D /* Booking.swift in Sources */,
+				D0BC2CA6299EFC6900D4448D /* Binding+onChange.swift in Sources */,
 				D012CD79299C2E3600271B23 /* CreateAppointmentRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

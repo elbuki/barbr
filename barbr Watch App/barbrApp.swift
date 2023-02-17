@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct barbr_Watch_AppApp: App {
     var body: some Scene {
-        let preferences = UserPreferences()
+        let preferences = Preferences()
         
         WindowGroup {
             ContentView()
