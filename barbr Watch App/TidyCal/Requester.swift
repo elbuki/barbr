@@ -8,6 +8,6 @@
 import Foundation
 
 protocol Requester {
-    func getAvailableBookings() -> [Booking]
-    func bookAppointment(startsAt: Date) -> Appointment
+    func getAvailableBookings() async -> [Booking]
+    func bookAppointment(startsAt: Date) async -> Appointment
 }

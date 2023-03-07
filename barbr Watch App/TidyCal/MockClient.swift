@@ -12,7 +12,7 @@ struct MockClient: Requester {
     let calendar = Calendar.current
     let amountOfHours = 10
 
-    func getAvailableBookings() -> [Booking] {
+    func getAvailableBookings() async -> [Booking] {
         var result: [Booking] = []
         
         guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date.now) else {
@@ -42,7 +42,7 @@ struct MockClient: Requester {
         return result
     }
     
-    func bookAppointment(startsAt timestamp: Date) -> Appointment {
+    func bookAppointment(startsAt timestamp: Date) async -> Appointment {
         guard let normalizedTime = calendar.date(bySetting: .minute, value: 0, of: timestamp) else {
             fatalError("could not get normalized date for tomorrow's date")
         }

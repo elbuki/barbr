@@ -25,6 +25,7 @@
 		D0510E77299AF10800116AC3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0510E76299AF10800116AC3 /* OnboardingView.swift */; };
 		D0BC2CA4299EF68E00D4448D /* BookAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */; };
 		D0BC2CA6299EFC6900D4448D /* Binding+onChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */; };
+		D0BC2CA8299EFE9100D4448D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2CA7299EFE9100D4448D /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		D0510E76299AF10800116AC3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentView.swift; sourceTree = "<group>"; };
 		D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+onChange.swift"; sourceTree = "<group>"; };
+		D0BC2CA7299EFE9100D4448D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				D0510E76299AF10800116AC3 /* OnboardingView.swift */,
 				D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */,
 				D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */,
+				D0BC2CA7299EFE9100D4448D /* LoadingView.swift */,
 			);
 			path = "barbr Watch App";
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				D0BC2CA4299EF68E00D4448D /* BookAppointmentView.swift in Sources */,
 				D008D226299441DC0017CC7D /* barbrApp.swift in Sources */,
 				D008D23E299444B60017CC7D /* TidyCal.swift in Sources */,
+				D0BC2CA8299EFE9100D4448D /* LoadingView.swift in Sources */,
 				D008D23C299444690017CC7D /* Requester.swift in Sources */,
 				D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */,
 				D00A27372995BA7300B4FB0A /* Preferences.swift in Sources */,

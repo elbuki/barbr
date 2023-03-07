@@ -18,7 +18,11 @@ struct TidyCal {
         client = testModeEnabled ? MockClient() : Client()
     }
     
-    func getAvailableBookings() -> [Booking] {
-        return client.getAvailableBookings()
+    func getAvailableBookings() async -> [Booking] {
+        return await client.getAvailableBookings()
+    }
+    
+    func bookAppointment(startsAt date: Date) async -> Appointment {
+        return await client.bookAppointment(startsAt: date)
     }
 }
