@@ -27,12 +27,15 @@ struct BookAppointmentView: View {
             }
         }
         .sheet(isPresented: $showConfirmationDialog) {
-            // Convert selected date to a human readable date (Tue Feb 21st at 8:32 AM)
-            // Create a "Confirm button"
-            // Create button to call the API
-            
-            Text("Do you want to book for \(formattedStartsAtDate())?")
-            Button(action: bookAppointment, label: { Text("Confirm") })
+            VStack {
+                Text("Do you want to book for \(formattedStartsAtDate())?")
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+
+                Button(action: bookAppointment, label: { Text("Confirm") })
+            }
+            .padding(.horizontal)
         }
         .onAppear {
             Task {
