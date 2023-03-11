@@ -7,16 +7,8 @@
 
 import Foundation
 
-struct Booking {
+struct Booking: Codable {
     let startsAt: Date
     let endsAt: Date
     let availableBookings: Int
-    
-    static func decoder() -> JSONDecoder {
-        let decoder = JSONDecoder()
-        
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        return decoder
-    }
 }
