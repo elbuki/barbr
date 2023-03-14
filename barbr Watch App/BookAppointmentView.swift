@@ -9,6 +9,8 @@ import SwiftUI
 import WatchDatePicker
 
 struct BookAppointmentView: View {
+    @EnvironmentObject var preferences: Preferences
+    
     @State private var startDate = Date.now
     @State private var isLoading = true
     @State private var showConfirmationDialog = false
@@ -89,7 +91,10 @@ struct BookAppointmentView: View {
         showConfirmationDialog = false
         
         Task {
-            _ = await TidyCal.shared.bookAppointment(startsAt: selected.startsAt)
+            _ = await TidyCal.shared.bookAppointment(
+                userData: preferences,
+                startsAt: selected.startsAt
+            )
             
             isLoading = false
         }

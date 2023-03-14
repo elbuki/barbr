@@ -22,7 +22,7 @@ struct TidyCal {
         return await client.getAvailableBookings()
     }
     
-    func bookAppointment(startsAt date: Date) async -> Appointment {
-        return await client.bookAppointment(startsAt: date)
+    func bookAppointment(userData: Preferences, startsAt date: Date) async -> Appointment {
+        return await client.bookAppointment(userData: userData, startsAt: date)
     }
 }

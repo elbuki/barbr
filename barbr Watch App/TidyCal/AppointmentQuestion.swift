@@ -5,7 +5,7 @@
 //  Created by Marco Carmona on 2/14/23.
 //
 
-struct AppointmentQuestion {
+struct AppointmentQuestion: Encodable {
     let bookingTypeQuestionID: Int
     let answer: String
 }

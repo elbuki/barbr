@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Appointment {
+struct Appointment: Decodable {
     let id: Int
     let startsAt: Date
     let endsAt: Date

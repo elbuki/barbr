@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Booking: Codable {
+struct Booking: Decodable {
     let startsAt: Date
     let endsAt: Date
     let availableBookings: Int

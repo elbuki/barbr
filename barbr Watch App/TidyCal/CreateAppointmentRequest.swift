@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct CreateAppointmentRequest {
+struct CreateAppointmentRequest: Encodable {
     let method: String
     let name: String
     let email: String
     let startsAt: Date
     let questions: [AppointmentQuestion]
-    let timezone: TimeZone
+    let timezone: String
 }

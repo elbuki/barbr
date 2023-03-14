@@ -42,7 +42,7 @@ struct MockClient: Requester {
         return result
     }
     
-    func bookAppointment(startsAt timestamp: Date) async -> Appointment {
+    func bookAppointment(userData _: Preferences, startsAt timestamp: Date) async -> Appointment {
         guard let normalizedTime = calendar.date(bySetting: .minute, value: 0, of: timestamp) else {
             fatalError("could not get normalized date for tomorrow's date")
         }

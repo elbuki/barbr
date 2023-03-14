@@ -12,6 +12,8 @@ struct Client: Requester {
     private let dayLimit = 7
     private var baseURL: String
     private var identifier: String
+    private var bookingTypeID: Int
+    private var timeZone: String
     
     init() {
         guard let baseURL = ProcessInfo.processInfo.environment["tidycal_base_url"] else {
@@ -22,8 +24,22 @@ struct Client: Requester {
             fatalError("could not parse the hash")
         }
         
+        guard let typeID = ProcessInfo.processInfo.environment["tidycal_type_question_id"] else {
+            fatalError("could not get the type question id")
+        }
+        
+        guard let parsedTypeID = Int(typeID) else {
+            fatalError("could not parse the type question id")
+        }
+        
+        guard let timeZone = ProcessInfo.processInfo.environment["tidycal_timezone"] else {
+            fatalError("could not get the timezone")
+        }
+        
         self.baseURL = baseURL
         self.identifier = identifier
+        self.bookingTypeID = parsedTypeID
+        self.timeZone = timeZone
     }
 
     func getAvailableBookings() async -> [Booking] {
@@ -42,7 +58,7 @@ struct Client: Requester {
         }
         
         guard var url = URL(string: urlPortions.joined(separator: "/")) else {
-            fatalError("could not build an url for ")
+            fatalError("could not build an url for getting available bookings")
         }
         
         let queryItems = [
@@ -66,11 +82,66 @@ struct Client: Requester {
         }
     }
     
-    func bookAppointment(startsAt timestamp: Date) -> Appointment {
-        // TODO: Create implementation
-//        {"_method":"post","name":"Marco Carmona","email":"mcarmonat@icloud.com","starts_at":"2023-02-15T21:30:00.000Z","booking_questions":[{"booking_type_question_id":251380,"answer":"87718365"}],"timezone":"America/Costa_Rica","payment_id":null}
+    func bookAppointment(userData: Preferences, startsAt timestamp: Date) async -> Appointment {
+        let urlPortions = [
+            baseURL,
+            "bookings",
+            identifier,
+        ]
+        var request: URLRequest
+        var requestBody: CreateAppointmentRequest
         
-        return .init(id: 0, startsAt: .now, endsAt: .now)
+        guard let url = URL(string: urlPortions.joined(separator: "/")) else {
+            fatalError("could not build an url for booking an appointment")
+        }
+        
+        guard let name = userData.name else {
+            fatalError("could not get name from the user")
+        }
+        
+        guard let email = userData.email else {
+            fatalError("could not get email from the user")
+        }
+        
+        guard let phone = userData.phone else {
+            fatalError("could not get phone from the user")
+        }
+        
+        request = URLRequest(url: url)
+        requestBody = .init(
+            method: "post",
+            name: name,
+            email: email,
+            startsAt: timestamp,
+            questions: [
+                .init(
+                    bookingTypeQuestionID: bookingTypeID,
+                    answer: String(phone)
+                )
+            ],
+            timezone: timeZone
+        )
+        
+        
+        // TODO: Get the data from the request body
+        guard let data = try? JSONSerialization.data(withJSONObject: requestBody) else {
+            fatalError("could not encode the data to json")
+        }
+        
+        dump(String(data: data, encoding: .utf8))
+        
+        request.httpMethod = "POST"
+        request.httpBody = data
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            return try Decoder.shared.decode(Appointment.self, from: data)
+        } catch {
+            fatalError(
+                "could not get a valid response from the server: \(error)"
+            )
+        }
     }
 
 }

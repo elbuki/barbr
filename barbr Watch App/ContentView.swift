@@ -19,6 +19,7 @@ struct ContentView: View {
         VStack {
             if preferences.savedAppointment == nil {
                 BookAppointmentView()
+                    .environmentObject(preferences)
             } else {
                 Text("Data was added")
             }
