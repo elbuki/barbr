@@ -12,7 +12,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var preferences: Preferences
-
+    
     @State var presentOnboarding = false
     
     var body: some View {
@@ -20,8 +20,31 @@ struct ContentView: View {
             if preferences.savedAppointment == nil {
                 BookAppointmentView()
                     .environmentObject(preferences)
+                
+                Spacer()
+                
+                Button(
+                    action: {
+                        presentOnboarding = true
+                    },
+                    label: {
+                        Image(systemName: "pencil")
+                    }
+                )
+                .clipShape(Circle())
             } else {
-                Text("Data was added")
+                Text("Booked for: \(formattedDate(date: preferences.savedAppointment!.startsAt))")
+                    .multilineTextAlignment(.center)
+                
+                Button(
+                    action: {
+                        // TODO: Show confirmation dialog
+                    },
+                    label: {
+                        Image(systemName: "xmark.circle.fill")
+                    }
+                )
+                .clipShape(Circle())
             }
         }
         .onAppear(perform: viewDidLoad)
@@ -44,6 +67,18 @@ struct ContentView: View {
         preferences.phone = phone
         
         presentOnboarding = false
+    }
+    
+    private func formattedDate(date: Date) -> String {
+        let dateFormat = Date.FormatStyle()
+            .year(.defaultDigits)
+            .month(.abbreviated)
+            .day(.twoDigits)
+            .hour(.defaultDigits(amPM: .abbreviated))
+            .minute(.twoDigits)
+            .weekday(.abbreviated)
+
+        return date.formatted(dateFormat)
     }
 }
 

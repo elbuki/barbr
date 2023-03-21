@@ -15,38 +15,49 @@ class Preferences: ObservableObject {
         email = current.string(forKey: Self.Keys.email.rawValue)
         phone = current.integer(forKey: Self.Keys.phone.rawValue)
         
-        let appointmentRawValue = current.object(forKey: Self.Keys.appointment.rawValue)
+        let rawData = current.data(forKey: Self.Keys.appointment.rawValue)
 
-        guard let appointment = appointmentRawValue as? Appointment else {
+        guard let rawData else {
             return
         }
         
-        savedAppointment = appointment
+        guard let decoded = try? Decoder.shared.decode(Appointment.self, from: rawData) else {
+            return
+        }
+        
+        savedAppointment = decoded
     }
 
-    var name: String? {
+    @Published var name: String? {
         willSet {
             current.set(newValue, forKey: Self.Keys.name.rawValue)
         }
     }
     
-    var email: String? {
+    @Published var email: String? {
         willSet {
             current.set(newValue, forKey: Self.Keys.email.rawValue)
         }
     }
     
-    var phone: Int? {
+    @Published var phone: Int? {
         willSet {
             current.set(newValue, forKey: Self.Keys.phone.rawValue)
         }
     }
     
-    var savedAppointment: Appointment? {
+    @Published var savedAppointment: Appointment? {
         willSet {
-            guard let appointment = newValue else { return }
+            guard let appointment = newValue else {
+                current.removeObject(forKey: Self.Keys.appointment.rawValue)
+                return
+            }
             
-            current.set(appointment, forKey: Self.Keys.appointment.rawValue)
+            guard let data = try? appointment.encodeToJSON() else {
+                fatalError("Could not encode to JSON")
+            }
+            
+            current.set(data, forKey: Self.Keys.appointment.rawValue)
         }
     }
     

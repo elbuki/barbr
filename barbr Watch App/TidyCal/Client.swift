@@ -108,10 +108,13 @@ struct Client: Requester {
         }
         
         request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
         requestBody = .init(
             method: "post",
             name: name,
-            email: email,
+            // TODO: Fix this
+            email: email + "@icloud.com",
             startsAt: timestamp,
             questions: [
                 .init(
@@ -121,14 +124,10 @@ struct Client: Requester {
             ],
             timezone: timeZone
         )
-        
-        
-        // TODO: Get the data from the request body
-        guard let data = try? JSONSerialization.data(withJSONObject: requestBody) else {
+
+        guard let data = try? requestBody.encodeToJSON() else {
             fatalError("could not encode the data to json")
         }
-        
-        dump(String(data: data, encoding: .utf8))
         
         request.httpMethod = "POST"
         request.httpBody = data
@@ -136,12 +135,18 @@ struct Client: Requester {
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             
+            dump(String(data: data, encoding: .utf8))
+            
             return try Decoder.shared.decode(Appointment.self, from: data)
         } catch {
             fatalError(
                 "could not get a valid response from the server: \(error)"
             )
         }
+    }
+    
+    func cancelAppointment(userData: Preferences) async {
+        // TODO: Perform request to cancel an appointment with the ID
     }
 
 }

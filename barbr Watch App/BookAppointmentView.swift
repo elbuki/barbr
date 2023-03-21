@@ -91,10 +91,12 @@ struct BookAppointmentView: View {
         showConfirmationDialog = false
         
         Task {
-            _ = await TidyCal.shared.bookAppointment(
+            let booked = await TidyCal.shared.bookAppointment(
                 userData: preferences,
                 startsAt: selected.startsAt
             )
+            
+            preferences.savedAppointment = booked
             
             isLoading = false
         }

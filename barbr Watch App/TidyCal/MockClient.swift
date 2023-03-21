@@ -53,5 +53,9 @@ struct MockClient: Requester {
         
         return .init(id: 1, startsAt: timestamp, endsAt: endDate)
     }
+    
+    func cancelAppointment(userData: Preferences) {
+        userData.savedAppointment = nil
+    }
 
 }
