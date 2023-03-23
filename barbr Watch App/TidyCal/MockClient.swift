@@ -11,9 +11,12 @@ struct MockClient: Requester {
     
     let calendar = Calendar.current
     let amountOfHours = 10
+    let delaySeconds = 2.0
 
     func getAvailableBookings() async -> [Booking] {
         var result: [Booking] = []
+        
+        await simulateDelay()
         
         guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date.now) else {
             fatalError("could not get the date for tomorrow")
@@ -51,11 +54,19 @@ struct MockClient: Requester {
             fatalError("could not get an end date for an appointment")
         }
         
-        return .init(id: 1, startsAt: timestamp, endsAt: endDate)
+        await simulateDelay()
+        
+        return .init(id: 1, slug: "test-slug", startsAt: timestamp, endsAt: endDate)
     }
     
-    func cancelAppointment(userData: Preferences) {
-        userData.savedAppointment = nil
+    func cancelAppointment(slug _: String) async {
+        await simulateDelay()
+    }
+    
+    private func simulateDelay() async {
+        guard let _ = try? await Task.sleep(for: .seconds(delaySeconds)) else {
+            fatalError("could not simulate delay")
+        }
     }
 
 }

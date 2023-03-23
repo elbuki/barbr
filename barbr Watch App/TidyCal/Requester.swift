@@ -10,5 +10,5 @@ import Foundation
 protocol Requester {
     func getAvailableBookings() async -> [Booking]
     func bookAppointment(userData: Preferences, startsAt: Date) async -> Appointment
-    func cancelAppointment(userData: Preferences) async
+    func cancelAppointment(slug: String) async
 }

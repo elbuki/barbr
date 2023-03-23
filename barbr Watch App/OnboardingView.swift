@@ -8,17 +8,27 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @State private var name = ""
-    @State private var email = ""
-    @State private var phone = 0
+    @Binding var name: String
+    @Binding var email: String
+    @Binding var phone: Int
     
     let onDismiss: ((String, String, Int) -> Void)?
+    
+    let formatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        return formatter
+    }()
     
     var body: some View {
         VStack {
             TextField("Name", text: $name)
+                .textInputAutocapitalization(.words)
+
             TextField("Email", text: $email)
-            TextField("Phone", value: $phone, format: .number)
+                .textInputAutocapitalization(.never)
+
+            TextField("Phone", value: $phone, formatter: formatter)
             
             Button(
                 action: { onDismiss?(name, email, phone) },
@@ -37,6 +47,11 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(onDismiss: nil)
+        OnboardingView(
+            name: .constant(""),
+            email: .constant(""),
+            phone: .constant(0),
+            onDismiss: nil
+        )
     }
 }

@@ -14,31 +14,20 @@ struct ContentView: View {
     @EnvironmentObject var preferences: Preferences
     
     @State var presentOnboarding = false
+    @State var presentCancelConfirmation = false
     
     var body: some View {
         VStack {
             if preferences.savedAppointment == nil {
-                BookAppointmentView()
+                BookAppointmentView(onEditPressed: { presentOnboarding = true })
                     .environmentObject(preferences)
-                
-                Spacer()
-                
-                Button(
-                    action: {
-                        presentOnboarding = true
-                    },
-                    label: {
-                        Image(systemName: "pencil")
-                    }
-                )
-                .clipShape(Circle())
             } else {
                 Text("Booked for: \(formattedDate(date: preferences.savedAppointment!.startsAt))")
                     .multilineTextAlignment(.center)
                 
                 Button(
                     action: {
-                        // TODO: Show confirmation dialog
+                        presentCancelConfirmation = true
                     },
                     label: {
                         Image(systemName: "xmark.circle.fill")
@@ -49,6 +38,7 @@ struct ContentView: View {
         }
         .onAppear(perform: viewDidLoad)
         .sheet(isPresented: $presentOnboarding, content: onboardingSheet)
+        .sheet(isPresented: $presentCancelConfirmation, content: cancelSheet)
         .padding()
     }
     
@@ -57,8 +47,37 @@ struct ContentView: View {
     }
     
     private func onboardingSheet() -> some View {
-        return OnboardingView(onDismiss: submitOnboarding)
-            .toolbar(.hidden)
+        return OnboardingView(
+            name: .constant(preferences.name ?? ""),
+            email: .constant(preferences.email ?? ""),
+            phone: .constant(preferences.phone ?? 0),
+            onDismiss: submitOnboarding
+        )
+        .toolbar(.hidden)
+    }
+    
+    private func cancelSheet() -> some View {
+        let dateDescription = preferences.savedAppointment?.startsAt.formatted() ?? ""
+        
+        guard let slug = preferences.savedAppointment?.slug else {
+            fatalError("Could not get a slug from the appointment")
+        }
+        
+        return ConfirmationView(
+            description: "Cancel the appointment for \(dateDescription)?",
+            ctaText: "Yes",
+            onCancel: {
+                presentCancelConfirmation = false
+            },
+            onSubmit: {
+                Task {
+                    await TidyCal.shared.cancelAppointment(slug: slug)
+                    
+                    preferences.savedAppointment = nil
+                    presentCancelConfirmation = false
+                }
+            }
+        )
     }
     
     private func submitOnboarding(name: String, email: String, phone: Int) {

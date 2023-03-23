@@ -9,6 +9,7 @@ import Foundation
 
 struct Appointment: Codable {
     let id: Int
+    let slug: String
     let startsAt: Date
     let endsAt: Date
     

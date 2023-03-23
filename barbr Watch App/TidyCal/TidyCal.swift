@@ -25,4 +25,8 @@ struct TidyCal {
     func bookAppointment(userData: Preferences, startsAt date: Date) async -> Appointment {
         return await client.bookAppointment(userData: userData, startsAt: date)
     }
+    
+    func cancelAppointment(slug: String) async {
+        return await client.cancelAppointment(slug: slug)
+    }
 }

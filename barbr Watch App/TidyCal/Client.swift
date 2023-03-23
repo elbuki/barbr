@@ -135,8 +135,6 @@ struct Client: Requester {
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
             
-            dump(String(data: data, encoding: .utf8))
-            
             return try Decoder.shared.decode(Appointment.self, from: data)
         } catch {
             fatalError(
@@ -145,8 +143,33 @@ struct Client: Requester {
         }
     }
     
-    func cancelAppointment(userData: Preferences) async {
-        // TODO: Perform request to cancel an appointment with the ID
+    func cancelAppointment(slug: String) async {
+        let urlPortions = [
+            baseURL,
+            "booking-types",
+            identifier,
+            "bookings",
+            slug,
+            "cancel"
+        ]
+        var request: URLRequest
+        
+        guard let url = URL(string: urlPortions.joined(separator: "/")) else {
+            fatalError("could not build an url for cancel an appointment")
+        }
+        
+        request = URLRequest(url: url)
+
+        request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
+        request.httpMethod = "POST"
+        
+        do {
+            _ = try await URLSession.shared.data(for: request)
+        } catch {
+            fatalError(
+                "could not get a valid response from the server: \(error)"
+            )
+        }
     }
 
 }

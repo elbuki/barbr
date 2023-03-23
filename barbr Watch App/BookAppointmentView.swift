@@ -11,6 +11,8 @@ import WatchDatePicker
 struct BookAppointmentView: View {
     @EnvironmentObject var preferences: Preferences
     
+    let onEditPressed: () -> Void
+    
     @State private var startDate = Date.now
     @State private var isLoading = true
     @State private var showConfirmationDialog = false
@@ -26,6 +28,14 @@ struct BookAppointmentView: View {
                     selection: $startDate.onChange(dateChanged),
                     showValueOnButton: false
                 )
+                
+                Spacer()
+                
+                Button(
+                    action: onEditPressed,
+                    label: { Image(systemName: "pencil") }
+                )
+                .clipShape(Circle())
             }
         }
         .sheet(isPresented: $showConfirmationDialog) {

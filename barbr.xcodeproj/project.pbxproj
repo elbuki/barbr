@@ -22,6 +22,7 @@
 		D012CD79299C2E3600271B23 /* CreateAppointmentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */; };
 		D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */; };
 		D012CD7D299C2F9000271B23 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D012CD7C299C2F9000271B23 /* Appointment.swift */; };
+		D03112D529CBBBCE001A2E6A /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03112D429CBBBCE001A2E6A /* ConfirmationView.swift */; };
 		D0510E77299AF10800116AC3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0510E76299AF10800116AC3 /* OnboardingView.swift */; };
 		D07D127C29BD105A0006F390 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D127B29BD105A0006F390 /* Decoder.swift */; };
 		D0BC2CA4299EF68E00D4448D /* BookAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */; };
@@ -69,6 +70,7 @@
 		D012CD78299C2E3600271B23 /* CreateAppointmentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppointmentRequest.swift; sourceTree = "<group>"; };
 		D012CD7A299C2F1100271B23 /* AppointmentQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentQuestion.swift; sourceTree = "<group>"; };
 		D012CD7C299C2F9000271B23 /* Appointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
+		D03112D429CBBBCE001A2E6A /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
 		D0510E76299AF10800116AC3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D07D127B29BD105A0006F390 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointmentView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				D0BC2CA3299EF68E00D4448D /* BookAppointmentView.swift */,
 				D0BC2CA5299EFC6900D4448D /* Binding+onChange.swift */,
 				D0BC2CA7299EFE9100D4448D /* LoadingView.swift */,
+				D03112D429CBBBCE001A2E6A /* ConfirmationView.swift */,
 			);
 			path = "barbr Watch App";
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				D008D23C299444690017CC7D /* Requester.swift in Sources */,
 				D012CD7B299C2F1100271B23 /* AppointmentQuestion.swift in Sources */,
 				D00A27372995BA7300B4FB0A /* Preferences.swift in Sources */,
+				D03112D529CBBBCE001A2E6A /* ConfirmationView.swift in Sources */,
 				D008D240299445480017CC7D /* Booking.swift in Sources */,
 				D0BC2CA6299EFC6900D4448D /* Binding+onChange.swift in Sources */,
 				D07D127C29BD105A0006F390 /* Decoder.swift in Sources */,
