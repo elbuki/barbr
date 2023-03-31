@@ -6,7 +6,12 @@
 //
 
 import SwiftUI
-import WatchDatePicker
+
+struct SectionBooking: Identifiable {
+    let id = UUID()
+    let date: String
+    let bookings: [Booking]
+}
 
 struct BookAppointmentView: View {
     @EnvironmentObject var preferences: Preferences
@@ -16,17 +21,18 @@ struct BookAppointmentView: View {
     @State private var startDate = Date.now
     @State private var isLoading = true
     @State private var showConfirmationDialog = false
+    @State private var showTimePicker = false
     @State private var bookings: [Booking] = []
+    @State private var sectionedBooking: [SectionBooking] = []
     
     var body: some View {
         VStack {
             if isLoading {
                 LoadingView()
             } else {
-                DatePicker(
-                    "Book",
-                    selection: $startDate.onChange(dateChanged),
-                    showValueOnButton: false
+                Button(
+                    action: { showTimePicker = true },
+                    label: { Text("Book") }
                 )
                 
                 Spacer()
@@ -40,7 +46,7 @@ struct BookAppointmentView: View {
         }
         .sheet(isPresented: $showConfirmationDialog) {
             VStack {
-                Text("Do you want to book for \(formattedStartsAtDate())?")
+                Text("Do you want to book for \(startDate)?")
                     .multilineTextAlignment(.center)
                 
                 Spacer()
@@ -49,21 +55,24 @@ struct BookAppointmentView: View {
             }
             .padding(.horizontal)
         }
+        .sheet(isPresented: $showTimePicker) {
+            BookingPicker(
+                startDate: $startDate,
+                showTimePicker: $showTimePicker,
+                showConfirmationDialog: $showConfirmationDialog,
+                sectionedBookings: sectionedBooking
+            )
+        }
         .onAppear {
             Task {
                 bookings = await TidyCal.shared.getAvailableBookings()
+                bookingToSectionedList()
                 isLoading = false
             }
         }
     }
-    
-    private func dateChanged() {
-        // Ask the user for confirmation
-        showConfirmationDialog = true
-    }
-    
+
     private func formattedStartsAtDate() -> String {
-        let selected = selectBookingDate()
         let dateFormat = Date.FormatStyle()
             .year(.defaultDigits)
             .month(.abbreviated)
@@ -72,43 +81,102 @@ struct BookAppointmentView: View {
             .minute(.twoDigits)
             .weekday(.abbreviated)
 
-        return selected.startsAt.formatted(dateFormat)
-    }
-    
-    func selectBookingDate() -> Booking {
-        var selectedBooking: Booking?
-        
-        for booking in bookings {
-            guard booking.startsAt > startDate else {
-                continue
-            }
-            
-            selectedBooking = booking
-            break
-        }
-        
-        guard let selectedBooking else {
-            fatalError("Could not find a valid booking")
-        }
-        
-        return selectedBooking
+        return startDate.formatted(dateFormat)
     }
     
     private func bookAppointment() {
-        let selected = selectBookingDate()
-        
         isLoading = true
         showConfirmationDialog = false
         
         Task {
             let booked = await TidyCal.shared.bookAppointment(
                 userData: preferences,
-                startsAt: selected.startsAt
+                startsAt: startDate
             )
             
             preferences.savedAppointment = booked
             
             isLoading = false
         }
+    }
+    
+    private func bookingToSectionedList() {
+        let dateFormat = Date.FormatStyle()
+            .year(.defaultDigits)
+            .month(.abbreviated)
+            .day(.twoDigits)
+        
+        var dates: [String: [Booking]] = [:]
+        var sections: [SectionBooking] = []
+        
+        for booking in bookings {
+            let formattedDate = booking.startsAt.formatted(dateFormat)
+
+            if dates[formattedDate] == nil {
+                dates[formattedDate] = [booking]
+                continue
+            }
+            
+            dates[formattedDate]?.append(booking)
+        }
+        
+        for (key, value) in dates {
+            let newElement = SectionBooking(date: key, bookings: value)
+            
+            sections.append(newElement)
+        }
+        
+        sections.sort { $0.bookings[0].startsAt < $1.bookings[0].endsAt }
+        
+        sectionedBooking = sections
+    }
+}
+
+struct BookingPicker: View {
+    @Binding var startDate: Date
+    @Binding var showTimePicker: Bool
+    @Binding var showConfirmationDialog: Bool
+    
+    let sectionedBookings: [SectionBooking]
+    
+    var body: some View {
+        ScrollView {
+            LazyVStack(pinnedViews: .sectionHeaders) {
+                ForEach(sectionedBookings) { section in
+                    Section(
+                        content: {
+                            ForEach(section.bookings) { booking in
+                                Button(
+                                    action: {
+                                        startDate = booking.startsAt
+                                        showTimePicker = false
+                                        showConfirmationDialog = true
+                                    },
+                                    label: {
+                                        Text(formattedStartsAtTime(date: booking.startsAt))
+                                    }
+                                )
+                            }
+                            .padding(.horizontal)
+                        },
+                        header: {
+                            ZStack {
+                                Color.gray
+                                
+                                Text(section.date)
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    }
+    
+    private func formattedStartsAtTime(date: Date) -> String {
+        let dateFormat = Date.FormatStyle()
+            .hour(.defaultDigits(amPM: .abbreviated))
+            .minute(.twoDigits)
+
+        return date.formatted(dateFormat)
     }
 }

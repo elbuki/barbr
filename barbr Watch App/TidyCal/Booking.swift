@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct Booking: Decodable {
+struct Booking: Decodable, Identifiable {
     let startsAt: Date
     let endsAt: Date
     let availableBookings: Int
+    
+    var id: String {
+        return startsAt.formatted(.iso8601)
+    }
 }

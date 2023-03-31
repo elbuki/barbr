@@ -48,9 +48,9 @@ struct ContentView: View {
     
     private func onboardingSheet() -> some View {
         return OnboardingView(
-            name: .constant(preferences.name ?? ""),
-            email: .constant(preferences.email ?? ""),
-            phone: .constant(preferences.phone ?? 0),
+            name: $preferences.name,
+            email: $preferences.email,
+            phone: $preferences.phone,
             onDismiss: submitOnboarding
         )
         .toolbar(.hidden)

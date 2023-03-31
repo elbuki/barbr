@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @Binding var name: String
-    @Binding var email: String
-    @Binding var phone: Int
+    @Binding var name: String?
+    @Binding var email: String?
+    @Binding var phone: Int?
     
     let onDismiss: ((String, String, Int) -> Void)?
     
@@ -22,16 +22,16 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
-            TextField("Name", text: $name)
+            TextField("Name", text: $name ?? "")
                 .textInputAutocapitalization(.words)
 
-            TextField("Email", text: $email)
+            TextField("Email", text: $email ?? "")
                 .textInputAutocapitalization(.never)
 
             TextField("Phone", value: $phone, formatter: formatter)
             
             Button(
-                action: { onDismiss?(name, email, phone) },
+                action: { onDismiss?(name!, email!, phone!) },
                 label: {
                     Text("Done")
                 }
@@ -43,6 +43,13 @@ struct OnboardingView: View {
     private func isFormValid() -> Bool {
         return name != "" && email != "" && phone != 0
     }
+}
+
+func ??<T>(lhs: Binding<Optional<T>>, rhs: T) -> Binding<T> {
+    Binding(
+        get: { lhs.wrappedValue ?? rhs },
+        set: { lhs.wrappedValue = $0 }
+    )
 }
 
 struct OnboardingView_Previews: PreviewProvider {
