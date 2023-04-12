@@ -44,6 +44,8 @@ struct ContentView: View {
     
     private func viewDidLoad() {
         presentOnboarding = !preferences.isUserInitialized
+        
+        // TODO: If the saved appointment is from the past, delete from storage
     }
     
     private func onboardingSheet() -> some View {

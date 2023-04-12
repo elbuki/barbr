@@ -17,13 +17,18 @@ struct BookAppointmentView: View {
     @EnvironmentObject var preferences: Preferences
     
     let onEditPressed: () -> Void
-    
-    @State private var startDate = Date.now
+
     @State private var isLoading = true
     @State private var showConfirmationDialog = false
     @State private var showTimePicker = false
     @State private var bookings: [Booking] = []
     @State private var sectionedBooking: [SectionBooking] = []
+    
+    class SheetManager: ObservableObject {
+        @Published var startDate = Date.now
+    }
+    
+    @StateObject var sheetManager = SheetManager()
     
     var body: some View {
         VStack {
@@ -46,7 +51,7 @@ struct BookAppointmentView: View {
         }
         .sheet(isPresented: $showConfirmationDialog) {
             VStack {
-                Text("Do you want to book for \(startDate)?")
+                Text("Do you want to book for \(formattedStartsAtDate())?")
                     .multilineTextAlignment(.center)
                 
                 Spacer()
@@ -56,12 +61,36 @@ struct BookAppointmentView: View {
             .padding(.horizontal)
         }
         .sheet(isPresented: $showTimePicker) {
-            BookingPicker(
-                startDate: $startDate,
-                showTimePicker: $showTimePicker,
-                showConfirmationDialog: $showConfirmationDialog,
-                sectionedBookings: sectionedBooking
-            )
+            ScrollView {
+                LazyVStack(pinnedViews: .sectionHeaders) {
+                    ForEach(sectionedBooking) { section in
+                        Section(
+                            content: {
+                                ForEach(section.bookings) { booking in
+                                    Button(
+                                        action: {
+                                            sheetManager.startDate = booking.startsAt
+                                            showTimePicker = false
+                                            showConfirmationDialog = true
+                                        },
+                                        label: {
+                                            Text(formattedStartsAtTime(date: booking.startsAt))
+                                        }
+                                    )
+                                }
+                                .padding(.horizontal)
+                            },
+                            header: {
+                                ZStack {
+                                    Color.gray
+                                    
+                                    Text(section.date)
+                                }
+                            }
+                        )
+                    }
+                }
+            }
         }
         .onAppear {
             Task {
@@ -81,7 +110,7 @@ struct BookAppointmentView: View {
             .minute(.twoDigits)
             .weekday(.abbreviated)
 
-        return startDate.formatted(dateFormat)
+        return sheetManager.startDate.formatted(dateFormat)
     }
     
     private func bookAppointment() {
@@ -91,7 +120,7 @@ struct BookAppointmentView: View {
         Task {
             let booked = await TidyCal.shared.bookAppointment(
                 userData: preferences,
-                startsAt: startDate
+                startsAt: sheetManager.startDate
             )
             
             preferences.savedAppointment = booked
@@ -129,47 +158,6 @@ struct BookAppointmentView: View {
         sections.sort { $0.bookings[0].startsAt < $1.bookings[0].endsAt }
         
         sectionedBooking = sections
-    }
-}
-
-struct BookingPicker: View {
-    @Binding var startDate: Date
-    @Binding var showTimePicker: Bool
-    @Binding var showConfirmationDialog: Bool
-    
-    let sectionedBookings: [SectionBooking]
-    
-    var body: some View {
-        ScrollView {
-            LazyVStack(pinnedViews: .sectionHeaders) {
-                ForEach(sectionedBookings) { section in
-                    Section(
-                        content: {
-                            ForEach(section.bookings) { booking in
-                                Button(
-                                    action: {
-                                        startDate = booking.startsAt
-                                        showTimePicker = false
-                                        showConfirmationDialog = true
-                                    },
-                                    label: {
-                                        Text(formattedStartsAtTime(date: booking.startsAt))
-                                    }
-                                )
-                            }
-                            .padding(.horizontal)
-                        },
-                        header: {
-                            ZStack {
-                                Color.gray
-                                
-                                Text(section.date)
-                            }
-                        }
-                    )
-                }
-            }
-        }
     }
     
     private func formattedStartsAtTime(date: Date) -> String {

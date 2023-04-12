@@ -12,7 +12,6 @@
 		D008D228299441DC0017CC7D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D227299441DC0017CC7D /* ContentView.swift */; };
 		D008D22A299441DD0017CC7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D008D229299441DD0017CC7D /* Assets.xcassets */; };
 		D008D22D299441DD0017CC7D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D008D22C299441DD0017CC7D /* Preview Assets.xcassets */; };
-		D008D239299442380017CC7D /* WatchDatePicker in Frameworks */ = {isa = PBXBuildFile; productRef = D008D238299442380017CC7D /* WatchDatePicker */; };
 		D008D23C299444690017CC7D /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23B299444690017CC7D /* Requester.swift */; };
 		D008D23E299444B60017CC7D /* TidyCal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23D299444B60017CC7D /* TidyCal.swift */; };
 		D008D240299445480017CC7D /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D008D23F299445480017CC7D /* Booking.swift */; };
@@ -83,7 +82,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D008D239299442380017CC7D /* WatchDatePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,7 +181,6 @@
 			);
 			name = "barbr Watch App";
 			packageProductDependencies = (
-				D008D238299442380017CC7D /* WatchDatePicker */,
 			);
 			productName = "barbr Watch App";
 			productReference = D008D220299441DC0017CC7D /* barbr Watch App.app */;
@@ -217,7 +214,6 @@
 			);
 			mainGroup = D008D213299441DC0017CC7D;
 			packageReferences = (
-				D008D237299442380017CC7D /* XCRemoteSwiftPackageReference "watch-date-picker" */,
 			);
 			productRefGroup = D008D21B299441DC0017CC7D /* Products */;
 			projectDirPath = "";
@@ -520,25 +516,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		D008D237299442380017CC7D /* XCRemoteSwiftPackageReference "watch-date-picker" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/elbuki/watch-date-picker";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		D008D238299442380017CC7D /* WatchDatePicker */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D008D237299442380017CC7D /* XCRemoteSwiftPackageReference "watch-date-picker" */;
-			productName = WatchDatePicker;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D008D214299441DC0017CC7D /* Project object */;
 }
