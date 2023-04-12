@@ -15,6 +15,7 @@ struct ContentView: View {
     
     @State var presentOnboarding = false
     @State var presentCancelConfirmation = false
+    @State var cancelButtonDisabled = false
     
     var body: some View {
         VStack {
@@ -34,6 +35,7 @@ struct ContentView: View {
                     }
                 )
                 .clipShape(Circle())
+                .disabled(cancelButtonDisabled)
             }
         }
         .onAppear(perform: viewDidLoad)
@@ -44,8 +46,24 @@ struct ContentView: View {
     
     private func viewDidLoad() {
         presentOnboarding = !preferences.isUserInitialized
+        cancelButtonDisabled = true
         
-        // TODO: If the saved appointment is from the past, delete from storage
+        Task {
+            guard let endsAt = preferences.savedAppointment?.endsAt else {
+                return
+            }
+            
+            if endsAt > Date.now {
+                cancelButtonDisabled = false
+                return
+            }
+            
+            preferences.savedAppointment = nil
+            
+            await simulateDelay()
+            
+            cancelButtonDisabled = false
+        }
     }
     
     private func onboardingSheet() -> some View {
@@ -75,8 +93,13 @@ struct ContentView: View {
                 Task {
                     await TidyCal.shared.cancelAppointment(slug: slug)
                     
-                    preferences.savedAppointment = nil
                     presentCancelConfirmation = false
+                    cancelButtonDisabled = true
+                    preferences.savedAppointment = nil
+                    
+                    await simulateDelay()
+                    
+                    cancelButtonDisabled = false
                 }
             }
         )
@@ -101,11 +124,10 @@ struct ContentView: View {
 
         return date.formatted(dateFormat)
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-            .environmentObject(Preferences())
+    
+    private func simulateDelay() async {
+        guard let _ = try? await Task.sleep(for: .seconds(2)) else {
+            fatalError("could not simulate delay")
+        }
     }
 }
