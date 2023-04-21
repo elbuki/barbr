@@ -25,7 +25,7 @@ struct ContentView: View {
             } else {
                 Text("Booked for: \(formattedDate(date: preferences.savedAppointment!.startsAt))")
                     .multilineTextAlignment(.center)
-                
+
                 Button(
                     action: {
                         presentCancelConfirmation = true
@@ -48,6 +48,7 @@ struct ContentView: View {
         presentOnboarding = !preferences.isUserInitialized
         cancelButtonDisabled = true
         
+        // When a booking is made, the button is not enabled
         Task {
             guard let endsAt = preferences.savedAppointment?.endsAt else {
                 return

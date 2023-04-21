@@ -53,7 +53,7 @@ struct BookAppointmentView: View {
             VStack {
                 Text("Do you want to book for \(formattedStartsAtDate())?")
                     .multilineTextAlignment(.center)
-                
+
                 Spacer()
 
                 Button(action: bookAppointment, label: { Text("Confirm") })
@@ -83,7 +83,7 @@ struct BookAppointmentView: View {
                             header: {
                                 ZStack {
                                     Color.gray
-                                    
+
                                     Text(section.date)
                                 }
                             }

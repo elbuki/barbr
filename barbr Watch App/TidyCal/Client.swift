@@ -8,39 +8,20 @@
 import Foundation
 
 struct Client: Requester {
+
+    let baseURL: String
+    let identifier: String
+    let bookingTypeID: Int
+    let timeZone: String
+    
+    init(config: Config) {
+        self.baseURL = config.baseURL
+        self.identifier = config.hashIdentifier
+        self.bookingTypeID = config.questionID
+        self.timeZone = config.timeZone
+    }
     
     private let dayLimit = 7
-    private var baseURL: String
-    private var identifier: String
-    private var bookingTypeID: Int
-    private var timeZone: String
-    
-    init() {
-        guard let baseURL = ProcessInfo.processInfo.environment["tidycal_base_url"] else {
-            fatalError("could not parse the base url")
-        }
-
-        guard let identifier = ProcessInfo.processInfo.environment["tidycal_hash"] else {
-            fatalError("could not parse the hash")
-        }
-        
-        guard let typeID = ProcessInfo.processInfo.environment["tidycal_type_question_id"] else {
-            fatalError("could not get the type question id")
-        }
-        
-        guard let parsedTypeID = Int(typeID) else {
-            fatalError("could not parse the type question id")
-        }
-        
-        guard let timeZone = ProcessInfo.processInfo.environment["tidycal_timezone"] else {
-            fatalError("could not get the timezone")
-        }
-        
-        self.baseURL = baseURL
-        self.identifier = identifier
-        self.bookingTypeID = parsedTypeID
-        self.timeZone = timeZone
-    }
 
     func getAvailableBookings() async -> [Booking] {
         let calendar = Calendar.current
@@ -113,8 +94,7 @@ struct Client: Requester {
         requestBody = .init(
             method: "post",
             name: name,
-            // TODO: Fix this
-            email: email + "@icloud.com",
+            email: email,
             startsAt: timestamp,
             questions: [
                 .init(

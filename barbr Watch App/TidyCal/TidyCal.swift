@@ -13,9 +13,23 @@ struct TidyCal {
     private var client: Requester
     
     init() {
-        let testModeEnabled = ProcessInfo.processInfo.environment["tidycal_test"] == "true"
+        client = MockClient()
         
-        client = testModeEnabled ? MockClient() : Client()
+        do {
+            if let filePath = Bundle.main.path(forResource: "config", ofType: "json") {
+                let fileURL = URL(fileURLWithPath: filePath)
+                let data = try Data(contentsOf: fileURL)
+                let decoded = try JSONDecoder().decode(Config.self, from: data)
+
+                if decoded.testMode {
+                    return
+                }
+                
+                client = Client(config: decoded)
+            }
+        } catch {
+            fatalError("could not get json: \(error)")
+        }
     }
     
     func getAvailableBookings() async -> [Booking] {

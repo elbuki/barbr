@@ -17,28 +17,28 @@ struct MockClient: Requester {
         var result: [Booking] = []
         
         await simulateDelay()
-        
+
         guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date.now) else {
             fatalError("could not get the date for tomorrow")
         }
-        
+
         guard let normalizedTime = calendar.date(bySetting: .minute, value: 0, of: tomorrow) else {
             fatalError("could not get normalized date for tomorrow's date")
         }
-        
+
         for n in 1...amountOfHours {
             var booking: Booking
-            
+
             guard let startDate = calendar.date(byAdding: .hour, value: n, to: normalizedTime) else {
                 continue
             }
-            
+
             guard let endDate = calendar.date(byAdding: .minute, value: 45, to: startDate) else {
                 continue
             }
-            
+
             booking = Booking(startsAt: startDate, endsAt: endDate, availableBookings: 1)
-            
+
             result.append(booking)
         }
         
@@ -64,9 +64,7 @@ struct MockClient: Requester {
     }
     
     private func simulateDelay() async {
-        guard let _ = try? await Task.sleep(for: .seconds(delaySeconds)) else {
-            fatalError("could not simulate delay")
-        }
+        _ = try? await Task.sleep(for: .seconds(delaySeconds))
     }
 
 }
