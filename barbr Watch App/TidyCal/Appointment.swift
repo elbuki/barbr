@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Appointment: Codable {
+struct Appointment: Codable, Equatable {
     let id: Int
     let slug: String
     let startsAt: Date

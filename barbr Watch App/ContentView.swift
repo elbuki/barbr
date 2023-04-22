@@ -39,6 +39,9 @@ struct ContentView: View {
             }
         }
         .onAppear(perform: viewDidLoad)
+        .onChange(of: preferences.savedAppointment) { newValue in
+            evaluateBooking(appointment: newValue)
+        }
         .sheet(isPresented: $presentOnboarding, content: onboardingSheet)
         .sheet(isPresented: $presentCancelConfirmation, content: cancelSheet)
         .padding()
@@ -46,11 +49,15 @@ struct ContentView: View {
     
     private func viewDidLoad() {
         presentOnboarding = !preferences.isUserInitialized
+
+        evaluateBooking(appointment: preferences.savedAppointment)
+    }
+    
+    private func evaluateBooking(appointment: Appointment?) {
         cancelButtonDisabled = true
         
-        // When a booking is made, the button is not enabled
         Task {
-            guard let endsAt = preferences.savedAppointment?.endsAt else {
+            guard let endsAt = appointment?.endsAt else {
                 return
             }
             

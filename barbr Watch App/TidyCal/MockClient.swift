@@ -56,7 +56,12 @@ struct MockClient: Requester {
         
         await simulateDelay()
         
-        return .init(id: 1, slug: "test-slug", startsAt: timestamp, endsAt: endDate)
+        return .init(
+            id: Int.random(in: 1...10),
+            slug: "test-slug",
+            startsAt: timestamp,
+            endsAt: endDate
+        )
     }
     
     func cancelAppointment(slug _: String) async {
